@@ -7,6 +7,7 @@ public class Bullet : MonoBehaviour {
     protected Vector3 startPosition;
     public GameObject levelGenerator;
     public float distance;
+    public bool setZeroRotate = false;
 
 	// Use this for initialization
 	void Start () {
@@ -19,8 +20,14 @@ public class Bullet : MonoBehaviour {
         var currentPosition = this.transform.position;
 
         if (distance <= Vector3.Distance(startPosition, currentPosition)) {
-            Debug.Log("HELLO HELLO");
-            GameObject newLand = Instantiate(levelGenerator, this.transform.position, Quaternion.identity) as GameObject;
+            if (setZeroRotate == true) {
+                GameObject newLand = Instantiate(levelGenerator, this.transform.position, Quaternion.identity) as GameObject;
+            }
+            else {
+                GameObject newLand = Instantiate(levelGenerator, this.transform.position, Quaternion.identity) as GameObject;
+                newLand.transform.eulerAngles = this.transform.eulerAngles;
+            }
+            
             Destroy(gameObject);
         }
 	}

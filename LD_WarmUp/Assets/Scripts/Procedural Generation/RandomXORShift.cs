@@ -62,24 +62,19 @@ public class RandomXORShift
 		return heightReturn;
 	}
 	
-	
-	
-	
 	// Functions used in various Qbots terrain generation code... I need to trim this function up a little at some point.
-	public int randomFromLocation(int point1, int point2, int distance, int max, int zeros = 1)
-	{
+	public int randomFromLocation(int point1, int point2, int distance, int max, int zeros = 1) {
 		return (Mathf.RoundToInt(randomFromLocationFloat(point1, point2, distance, max, zeros)));
 	}
 	
-	public float randomFromLocationFloat(int point1, int point2, int distance, int max, int zeros = 1)
-	{
+	public float randomFromLocationFloat(int point1, int point2, int distance, int max, int zeros = 1) {
 		int originalSeed = seed;
 		float height = 0;
 		
 		int sourceX = Mathf.RoundToInt (point1/distance);
 		int sourceY = Mathf.RoundToInt (point2/distance);
-		
-		int sourceX2 = sourceX;
+
+        int sourceX2 = sourceX;
 		int sourceY2 = sourceY;
 		int sourceX3 = sourceX;
 		int sourceY3 = sourceY;
