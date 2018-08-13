@@ -7,6 +7,9 @@ public class MovementHandler : MonoBehaviour
     public float speed = 7;
     public float jumpSpeed = 8.0f;
     public float gravity = 20.0f;
+    
+    public AudioSource walkingNoise;
+    public AudioSource jumpNoise;
 
     private Vector3 playerDirection = Vector3.zero;
     private CharacterController controller;
@@ -31,10 +34,17 @@ public class MovementHandler : MonoBehaviour
         {
             Quaternion CameraRotata = Quaternion.Euler(0, Camera.main.transform.eulerAngles.y, 0);
             transform.GetChild(1).rotation = Quaternion.Lerp(transform.GetChild(1).rotation, CameraRotata, Time.deltaTime * 10f);
+            if (!walkingNoise.isPlaying) {
+                walkingNoise.Play();
+            }
+        }
+        else {
+            if (walkingNoise.isPlaying) {
+                walkingNoise.Stop();
+            }
         }
 
-        if (grounded)
-        {
+        if (grounded) {            
             if (falling)
                 falling = false;
 
@@ -51,12 +61,17 @@ public class MovementHandler : MonoBehaviour
             {
                 playerDirection.y = jumpSpeed;
                 jumpTimer = 0;
+                jumpNoise.Play();
             }
         }
-        else
-        {
-            if (!falling)
+        else {
+            if (!falling) {
                 falling = true;
+            }
+
+            if (walkingNoise.isPlaying) {
+                walkingNoise.Stop();
+            }            
         }
 
         playerDirection.y -= gravity * Time.deltaTime;

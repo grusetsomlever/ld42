@@ -8,6 +8,7 @@ public class Bullet : MonoBehaviour {
     public GameObject levelGenerator;
     public float distance;
     public bool setZeroRotate = false;
+    public Music backgroundMusicStatus;
 
 	// Use this for initialization
 	void Start () {
@@ -27,7 +28,8 @@ public class Bullet : MonoBehaviour {
                 GameObject newLand = Instantiate(levelGenerator, this.transform.position, Quaternion.identity) as GameObject;
                 newLand.transform.eulerAngles = this.transform.eulerAngles;
             }
-            
+
+            backgroundMusicStatus.addBlock();
             Destroy(gameObject);
         }
 	}

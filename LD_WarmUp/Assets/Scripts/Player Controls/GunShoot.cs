@@ -8,6 +8,8 @@ public class GunShoot : MonoBehaviour {
     public GameObject secondProjectile;
     public float distance = 20;
     public float force = 300;
+    public AudioSource shootSound;
+    public Music musicStatus;
 
 	// Use this for initialization
 	void Start () {
@@ -21,10 +23,13 @@ public class GunShoot : MonoBehaviour {
             position = Camera.main.ScreenToWorldPoint(position);
 
             GameObject shot = Instantiate(projectile, transform.position, Quaternion.identity) as GameObject;
+            shot.GetComponent<Bullet>().backgroundMusicStatus = musicStatus;
             shot.GetComponent<Bullet>().distance = distance;
             shot.transform.LookAt(position);
 
             shot.GetComponent<Rigidbody>().AddForce(shot.transform.forward * force);
+
+            shootSound.Play();
         }
         if (Input.GetMouseButtonDown(1)) {
             Vector3 position = new Vector3(Input.mousePosition.x, Input.mousePosition.y, distance);
@@ -35,6 +40,8 @@ public class GunShoot : MonoBehaviour {
             shot.transform.LookAt(position);
 
             shot.GetComponent<Rigidbody>().AddForce(shot.transform.forward * force);
+
+            shootSound.Play();
         }
     }
 }
